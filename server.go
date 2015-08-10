@@ -282,10 +282,9 @@ func main() {
 	e.Use(mw.Recover())
 
 	// Routes
-	e.Index("public/index.html")
 	e.Static("/js/", "public/js")
 	e.Static("/css/", "public/css")
-	e.Get("/recent", recentMedia)
+	e.Get("/", recentMedia)
 
 	// Start server
 	e.Run(":3000")
