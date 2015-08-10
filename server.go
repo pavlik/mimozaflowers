@@ -319,6 +319,8 @@ func main() {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
+	viper.AutomaticEnv()
+
 	err = viper.Marshal(&C)
 	if err != nil {
 		log.Fatalf("unable to decode into struct, %v", err)
