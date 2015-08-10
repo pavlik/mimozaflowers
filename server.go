@@ -256,6 +256,60 @@ func (t *Template) Render(w io.Writer, name string, data interface{}) error {
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
+func generateEndingColumns(columnsToGenerate, columns int) string {
+	var feed string
+	for i := 1; i <= columnsToGenerate; i++ {
+		feed += `<div class="col-md-` + strconv.Itoa(columns) + `"></div>`
+		if i == columnsToGenerate {
+			feed += `</div>`
+		}
+	}
+
+	return feed
+}
+
+func buildInstaFeed(medias []Media, itemsPerRow int) template.HTML {
+	counter := 1
+	var feed string
+	columns := 12 / itemsPerRow
+	itemsCount := len(medias)
+	rows := itemsCount / itemsPerRow
+	rowsMod := itemsCount % itemsPerRow
+	if rowsMod > 0 {
+		rows++
+	}
+	realItemsCount := itemsPerRow * rows
+	endingEmptyColumns := realItemsCount - itemsCount
+
+	for i := 0; i < itemsCount; i++ {
+		imageURL := medias[i].Images.LowResolution.Url
+		link := medias[i].Link
+
+		if counter == 1 {
+			feed += `<div class="row">`
+			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
+			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
+			feed += `</div>`
+			counter++
+		} else if counter == itemsPerRow {
+			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
+			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
+			feed += `</div>`
+			feed += `</div>`
+			counter = 1
+		} else {
+			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
+			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
+			feed += `</div>`
+			counter++
+		}
+
+		feed += generateEndingColumns(endingEmptyColumns, columns)
+	}
+
+	return template.HTML(feed)
+}
+
 func main() {
 	// init config
 	viper.SetConfigName("config") // name of config file (without extension)
@@ -274,7 +328,8 @@ func main() {
 	e := echo.New()
 	e.SetDebug(true)
 
-	t := &Template{templates: template.Must(template.ParseGlob("templates/*.html"))}
+	html := template.Must(template.New("").Funcs(template.FuncMap{"buildInstaFeed": buildInstaFeed}).ParseGlob("templates/*.html"))
+	t := &Template{templates: html}
 	e.SetRenderer(t)
 
 	// Middleware
