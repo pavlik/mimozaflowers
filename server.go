@@ -17,10 +17,10 @@ import (
 )
 
 type config struct {
-	ClientID     string
-	ClientSecret string
-	BaseURL      string
-	Username     string
+	CLIENTID     string
+	CLIENTSECRET string
+	BASEURL      string
+	USERNAME     string
 }
 
 var C config
@@ -188,7 +188,7 @@ func ParseLocationId(lid LocationId) string {
 
 func getUserID(username string) (string, error) {
 	usersResponse := new(UsersResponse)
-	response, err := http.Get(C.BaseURL + "/users/search?q=" + username + "&client_id=" + C.ClientID)
+	response, err := http.Get(C.BASEURL + "/users/search?q=" + username + "&client_id=" + C.CLIENTID)
 	if err != nil {
 		return "", err
 	}
@@ -212,7 +212,7 @@ func getUserID(username string) (string, error) {
 func getRecentMedia(userID string, count int) (*MediasResponse, error) {
 	mediasResponse := new(MediasResponse)
 
-	response, err := http.Get(C.BaseURL + "/users/" + userID + "/media/recent/?client_id=" + C.ClientID + "&count=" + strconv.Itoa(count))
+	response, err := http.Get(C.BASEURL + "/users/" + userID + "/media/recent/?client_id=" + C.CLIENTID + "&count=" + strconv.Itoa(count))
 	if err != nil {
 		return mediasResponse, err
 	}
@@ -230,7 +230,7 @@ func getRecentMedia(userID string, count int) (*MediasResponse, error) {
 
 // Handler
 func recentMedia(c *echo.Context) error {
-	id, err := getUserID("mimozaflowers")
+	id, err := getUserID(C.USERNAME)
 	if err != nil {
 		return c.String(http.StatusOK, err.Error())
 	}
