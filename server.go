@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"html/template"
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -331,8 +330,6 @@ func main() {
 		BASEURL:      viper.GetString("BASEURL"),
 		USERNAME:     viper.GetString("USERNAME"),
 		PORT:         viper.GetString("PORT")}
-
-	log.Println("VIPER: ", C.PORT)
 
 	// Echo instance
 	e := echo.New()

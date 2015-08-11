@@ -2,57 +2,76 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
-    <title>Мимоза</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/main.css">
-  </head>
-  <body>
-    <div class="container">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
 
-      <div class="page-header">
-    <div class="row vertical-align">
+  <title>Мимоза</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="row vertical-align">
         <div class="col-md-4">
-            <h1>Мимоза</h1>
+          <h1>Мимоза</h1>
         </div>
         <div class="col-md-8">
-            <p class="lead text-right">Мастерская цветов и декора<br/>
-            Анапа, ул. Шевченко 24</p>
+          <p class="lead text-right">Мастерская цветов и декора
+            <br/> Анапа, ул. Шевченко 24</p>
         </div>
+      </div>
     </div>
-</div>
 
-      {{buildInstaFeed .Medias 4}}
+    {{buildInstaFeed .Medias 4}}
 
-      <!-- Site footer -->
-      <footer class="row footer">
-        <div class="col-md-4">
-        <p>Мастерская цветов и декора<br/>
-          Анапа, ул. Шевченко 24</p>
-</div>
-<div class="text-center col-md-4">
-          Телефоны: 8 (86133) 4-66-22<br/>
-          +7 (918) 065-13-17 (WhatsApp)
-        </div>
-        <div class="text-right col-md-4">
-          <a href="vk.com/mimoza_anapa">ВКонтакте</a><br/>
-          <a href="http://instagram.com/mimozaflowers/">Instagram</a>
-        </div>
-      </footer>
+    <!-- Site footer -->
+    <footer class="row footer">
+      <div class="col-md-4">
+        <p>Мастерская цветов и декора
+          <br/> Анапа, ул. Шевченко 24</p>
+      </div>
+      <div class="text-center col-md-4">
+        Телефоны: 8 (86133) 4-66-22
+        <br/> +7 (918) 065-13-17 (WhatsApp)
+      </div>
+      <div class="text-right col-md-4">
+        <a href="vk.com/mimoza_anapa">ВКонтакте</a>
+        <br/>
+        <a href="http://instagram.com/mimozaflowers/">Instagram</a>
+      </div>
+    </footer>
 
-    </div> <!-- /container -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
+  </div>
+  <!-- /container -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+    ChatraID = 'mxkW2PMyMCm5QJYc7';
+    (function(d, w, c) {
+      var n = d.getElementsByTagName('script')[0],
+        s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = (d.location.protocol === 'https:' ? 'https:' : 'http:') + '//chat.chatra.io/chatra.js';
+      n.parentNode.insertBefore(s, n);
+    })(document, window, 'Chatra');
+  </script>
+</body>
+
 </html>
 
 {{end}}
