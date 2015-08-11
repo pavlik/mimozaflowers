@@ -286,7 +286,7 @@ func buildInstaFeed(medias []Media, itemsPerRow int) template.HTML {
 		link := medias[i].Link
 
 		if counter == 1 {
-			feed += `<div class="row">`
+			feed += `<div class="insta row">`
 			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
 			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
 			feed += `</div>`
