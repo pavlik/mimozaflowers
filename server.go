@@ -321,10 +321,16 @@ func main() {
 		//panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	err = viper.Marshal(&C)
-	if err != nil {
-		log.Fatalf("unable to decode into struct, %v", err)
-	}
+	// err = viper.Marshal(&C)
+	// if err != nil {
+	// 	log.Fatalf("unable to decode into struct, %v", err)
+	// }
+
+	C = config{CLIENTID: viper.GetString("CLIENTID"),
+		CLIENTSECRET: viper.GetString("CLIENTSECRET"),
+		BASEURL:      viper.GetString("BASEURL"),
+		USERNAME:     viper.GetString("USERNAME"),
+		PORT:         viper.GetString("PORT")}
 
 	log.Println("VIPER: ", C.PORT)
 
