@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -322,13 +321,12 @@ func main() {
 		//panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	log.Println("VIPER: ", viper.Get("PORT"))
-	log.Println("ENV: ", os.Getenv("PORT"))
-
 	err = viper.Marshal(&C)
 	if err != nil {
 		log.Fatalf("unable to decode into struct, %v", err)
 	}
+
+	log.Println("VIPER: ", C.PORT)
 
 	// Echo instance
 	e := echo.New()
