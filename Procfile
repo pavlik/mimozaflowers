@@ -1,1 +1,1 @@
-web: mimozaflowers
+web: mimozaflowers.ru
