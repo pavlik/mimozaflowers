@@ -259,7 +259,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}) error {
 func generateEndingColumns(columnsToGenerate, columns int) string {
 	var feed string
 	for i := 1; i <= columnsToGenerate; i++ {
-		feed += `<div class="col-md-` + strconv.Itoa(columns) + `"></div>`
+		feed += `<div class="col-sm-6 col-md-` + strconv.Itoa(columns) + `"></div>`
 		if i == columnsToGenerate {
 			feed += `</div>`
 		}
@@ -287,18 +287,18 @@ func buildInstaFeed(medias []Media, itemsPerRow int) template.HTML {
 
 		if counter == 1 {
 			feed += `<div class="insta row">`
-			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
+			feed += `<div class="col-sm-6 col-md-` + strconv.Itoa(columns) + `">`
 			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
 			feed += `</div>`
 			counter++
 		} else if counter == itemsPerRow {
-			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
+			feed += `<div class="col-sm-6 col-md-` + strconv.Itoa(columns) + `">`
 			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
 			feed += `</div>`
 			feed += `</div>`
 			counter = 1
 		} else {
-			feed += `<div class="col-md-` + strconv.Itoa(columns) + `">`
+			feed += `<div class="col-sm-6 col-md-` + strconv.Itoa(columns) + `">`
 			feed += `<a href="` + link + `"><img src="` + imageURL + `" alt="" class="img-responsive"></a>`
 			feed += `</div>`
 			counter++
