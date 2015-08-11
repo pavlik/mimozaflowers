@@ -21,6 +21,7 @@ type config struct {
 	CLIENTSECRET string
 	BASEURL      string
 	USERNAME     string
+	PORT         string
 }
 
 var C config
@@ -344,5 +345,5 @@ func main() {
 	e.Get("/", recentMedia)
 
 	// Start server
-	e.Run(":3000")
+	e.Run(":" + C.PORT)
 }
