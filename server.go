@@ -324,11 +324,12 @@ func main() {
 	// if err != nil {
 	// 	log.Fatalf("unable to decode into struct, %v", err)
 	// }
+	//os.Getenv("PORT")
 
-	C = config{CLIENTID: viper.GetString("CLIENTID"),
-		CLIENTSECRET: viper.GetString("CLIENTSECRET"),
-		BASEURL:      viper.GetString("BASEURL"),
-		USERNAME:     viper.GetString("USERNAME"),
+	C = config{CLIENTID: viper.GetString("MIMOZA_CLIENTID"),
+		CLIENTSECRET: viper.GetString("MIMOZA_CLIENTSECRET"),
+		BASEURL:      viper.GetString("MIMOZA_BASEURL"),
+		USERNAME:     viper.GetString("MIMOZA_USERNAME"),
 		PORT:         viper.GetString("PORT")}
 
 	// Echo instance
