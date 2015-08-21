@@ -5,13 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
-	"io"
 	"net/http"
 	"strconv"
 	"time"
 
-	"github.com/labstack/echo"
-	mw "github.com/labstack/echo/middleware"
+	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 )
 
@@ -229,32 +227,32 @@ func getRecentMedia(userID string, count int) (*MediasResponse, error) {
 }
 
 // Handler
-func recentMedia(c *echo.Context) error {
+func recentMedia(c *gin.Context) {
 	id, err := getUserID(C.USERNAME)
 	if err != nil {
-		return c.String(http.StatusOK, err.Error())
+		c.String(http.StatusBadRequest, "User not found: %s", err.Error())
 	}
 
 	mediasResponse, err2 := getRecentMedia(id, 20)
 
 	if err2 != nil {
-		return c.String(http.StatusOK, err.Error())
+		c.String(http.StatusBadRequest, "Media not found: ", err.Error())
 	}
 
 	if mediasResponse.Meta.Code == 200 {
-		return c.Render(http.StatusOK, "index", mediasResponse)
+		c.HTML(http.StatusOK, "index", mediasResponse)
 	}
 
-	return c.JSON(http.StatusOK, mediasResponse)
+	//c.JSON(http.StatusOK, mediasResponse)
 }
 
 type Template struct {
 	templates *template.Template
 }
 
-func (t *Template) Render(w io.Writer, name string, data interface{}) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
+// func (t *Template) Render(w io.Writer, name string, data interface{}) error {
+// 	return t.templates.ExecuteTemplate(w, name, data)
+// }
 
 func generateEndingColumns(columnsToGenerate, columns int) string {
 	var feed string
@@ -332,23 +330,22 @@ func main() {
 		USERNAME:     viper.GetString("USERNAME"),
 		PORT:         viper.GetString("PORT")}
 
-	// Echo instance
-	e := echo.New()
-	e.SetDebug(true)
+	// Gin instance
+	router := gin.Default()
 
 	html := template.Must(template.New("").Funcs(template.FuncMap{"buildInstaFeed": buildInstaFeed}).ParseGlob("templates/*.html"))
-	t := &Template{templates: html}
-	e.SetRenderer(t)
+	//t := &Template{templates: html}
+	router.SetHTMLTemplate(html)
 
 	// Middleware
-	e.Use(mw.Logger())
-	e.Use(mw.Recover())
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
 
 	// Routes
-	e.Static("/js/", "public/js")
-	e.Static("/css/", "public/css")
-	e.Get("/", recentMedia)
+	router.Static("/js/", "public/js")
+	router.Static("/css/", "public/css")
+	router.GET("/", recentMedia)
 
 	// Start server
-	e.Run(":" + C.PORT)
+	router.Run(":" + C.PORT)
 }
