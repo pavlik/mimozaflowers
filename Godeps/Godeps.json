@@ -1,0 +1,15 @@
+{
+	"ImportPath": "github.com/pavlik/mimozaflowers.ru",
+	"GoVersion": "go1.5.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/gin-gonic/gin",
+			"Comment": "v1.0rc1-143-g704d690",
+			"Rev": "704d690ac0e25fcd060ff82f75f913e879e65a3c"
+		},
+		{
+			"ImportPath": "github.com/spf13/viper",
+			"Rev": "9fca10189b1307bba68b2cd487dd93da0bfbda06"
+		}
+	]
+}
