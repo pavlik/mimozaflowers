@@ -1,6 +1,6 @@
 {
-	"ImportPath": "github.com/pavlik/mimozaflowers.ru",
-	"GoVersion": "go1.4.2",
+	"ImportPath": "github.com/pavlik/mimozaflowers",
+	"GoVersion": "go1.5.1",
 	"Deps": [
 		{
 			"ImportPath": "github.com/BurntSushi/toml",
@@ -8,8 +8,9 @@
 			"Rev": "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
 		},
 		{
-			"ImportPath": "github.com/bradfitz/http2",
-			"Rev": "f8202bc903bda493ebba4aa54922d78430c2c42f"
+			"ImportPath": "github.com/gin-gonic/gin",
+			"Comment": "v1.0rc1-143-g704d690",
+			"Rev": "704d690ac0e25fcd060ff82f75f913e879e65a3c"
 		},
 		{
 			"ImportPath": "github.com/kr/pretty",
@@ -21,19 +22,17 @@
 			"Rev": "e373e137fafd8abd480af49182dea0513914adb4"
 		},
 		{
-			"ImportPath": "github.com/labstack/echo",
-			"Comment": "v1.1.0-18-g031c14f",
-			"Rev": "031c14f0f74abeb03fcffc53f9e3310f53574704"
-		},
-		{
-			"ImportPath": "github.com/labstack/gommon/color",
-			"Comment": "v0.0.3-7-g3c61341",
-			"Rev": "3c613419957bbd5afea3fc87bbc0f9f2dca19196"
-		},
-		{
 			"ImportPath": "github.com/magiconair/properties",
 			"Comment": "v1.5.5",
 			"Rev": "337395e44efb4affc8bf11971e22acbd4e27a32d"
+		},
+		{
+			"ImportPath": "github.com/manucorporat/sse",
+			"Rev": "fe6ea2c8e398672518ef204bf0fbd9af858d0e15"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Rev": "40e4aedc8fabf8c23e040057540867186712faa5"
 		},
 		{
 			"ImportPath": "github.com/mitchellh/mapstructure",
@@ -49,15 +48,20 @@
 		},
 		{
 			"ImportPath": "github.com/spf13/pflag",
-			"Rev": "41e9136667ee4f9ffd03da380e24629d7eccace4"
+			"Rev": "8e7dc108ab3a1ab6ce6d922bbaff5657b88e8e49"
 		},
 		{
 			"ImportPath": "github.com/spf13/viper",
-			"Rev": "2abb1bebfde865b0bb6bb7ada5be63ec78527fa6"
+			"Rev": "9fca10189b1307bba68b2cd487dd93da0bfbda06"
 		},
 		{
-			"ImportPath": "golang.org/x/net/websocket",
-			"Rev": "1bc0720082d79ce7ffc6ef6e523d00d46b0dee45"
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "47990a1ba55743e6ef1affd3a14e5bac8553615d"
+		},
+		{
+			"ImportPath": "gopkg.in/bluesuncorp/validator.v5",
+			"Comment": "v5.11",
+			"Rev": "98121ac23ff3d764f525d18d8de944d150e3c0fe"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
