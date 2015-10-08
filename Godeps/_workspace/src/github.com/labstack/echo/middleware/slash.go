@@ -1,6 +1,6 @@
 package middleware
 
-import "github.com/labstack/echo"
+import "github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo"
 
 // StripTrailingSlash returns a middleware which removes trailing slash from request
 // path.

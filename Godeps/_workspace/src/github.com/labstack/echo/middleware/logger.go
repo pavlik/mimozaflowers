@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/labstack/echo"
-	"github.com/labstack/gommon/color"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/gommon/color"
 )
 
 func Logger() echo.MiddlewareFunc {

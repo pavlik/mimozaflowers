@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/spf13/pflag"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
 )
 

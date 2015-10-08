@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo"
 )
 
 type (

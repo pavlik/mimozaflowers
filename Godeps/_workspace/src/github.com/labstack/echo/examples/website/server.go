@@ -6,8 +6,8 @@ import (
 
 	"html/template"
 
-	"github.com/labstack/echo"
-	mw "github.com/labstack/echo/middleware"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo"
+	mw "github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo/middleware"
 	"github.com/rs/cors"
 	"github.com/thoas/stats"
 )

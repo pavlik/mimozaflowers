@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/gopkg.in/yaml.v2"
 	. "gopkg.in/check.v1"
-	"gopkg.in/yaml.v2"
 	"net"
 	"os"
 )

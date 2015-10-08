@@ -12,7 +12,7 @@ import (
 
 	"os"
 
-	"golang.org/x/net/websocket"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/golang.org/x/net/websocket"
 )
 
 type (

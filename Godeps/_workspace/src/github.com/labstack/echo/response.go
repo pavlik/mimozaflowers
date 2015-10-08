@@ -6,7 +6,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/labstack/gommon/color"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/gommon/color"
 )
 
 type (

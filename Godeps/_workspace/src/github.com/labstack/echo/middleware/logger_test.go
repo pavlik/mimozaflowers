@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"errors"
-	"github.com/labstack/echo"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo"
 	"net/http"
 	"net/http/httptest"
 	"testing"

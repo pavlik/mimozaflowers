@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/labstack/echo"
-	mw "github.com/labstack/echo/middleware"
+	"github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo"
+	mw "github.com/pavlik/mimozaflowers.ru/Godeps/_workspace/src/github.com/labstack/echo/middleware"
 )
 
 const (
