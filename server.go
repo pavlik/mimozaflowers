@@ -311,6 +311,7 @@ func buildInstaFeed(medias []Media, itemsPerRow int) template.HTML {
 func main() {
 	// init config
 	viper.SetConfigName("config") // name of config file (without extension)
+	viper.AddConfigPath(".") 
 
 	err := viper.ReadInConfig() // Find and read the config file
 	if err != nil {             // Handle errors reading the config file
@@ -323,12 +324,14 @@ func main() {
 	// 	log.Fatalf("unable to decode into struct, %v", err)
 	// }
 	//os.Getenv("PORT")
+	
+	fmt.Println(viper.GetString("port"))
 
-	C = config{CLIENTID: viper.GetString("CLIENTID"),
-		CLIENTSECRET: viper.GetString("CLIENTSECRET"),
-		BASEURL:      viper.GetString("BASEURL"),
-		USERNAME:     viper.GetString("USERNAME"),
-		PORT:         viper.GetString("PORT")}
+	C = config{CLIENTID: viper.GetString("clientid"),
+		CLIENTSECRET: viper.GetString("clientsecret"),
+		BASEURL:      viper.GetString("baseurl"),
+		USERNAME:     viper.GetString("username"),
+		PORT:         viper.GetString("port")}
 
 	// Gin instance
 	router := gin.Default()
