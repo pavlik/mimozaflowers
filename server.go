@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/pavlik/mimozaflowers/Godeps/_workspace/src/github.com/gin-gonic/gin"
-	"github.com/pavlik/mimozaflowers/Godeps/_workspace/src/github.com/spf13/viper"
+	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 type config struct {
