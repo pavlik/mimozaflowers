@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
+	"github.com/pavlik/mimozaflowers/Godeps/_workspace/src/github.com/gin-gonic/gin"
+	"github.com/pavlik/mimozaflowers/Godeps/_workspace/src/github.com/spf13/viper"
 )
 
 type config struct {
@@ -311,7 +311,7 @@ func buildInstaFeed(medias []Media, itemsPerRow int) template.HTML {
 func main() {
 	// init config
 	viper.SetConfigName("config") // name of config file (without extension)
-	viper.AddConfigPath(".") 
+	viper.AddConfigPath(".")
 
 	err := viper.ReadInConfig() // Find and read the config file
 	if err != nil {             // Handle errors reading the config file
@@ -324,7 +324,7 @@ func main() {
 	// 	log.Fatalf("unable to decode into struct, %v", err)
 	// }
 	//os.Getenv("PORT")
-	
+
 	fmt.Println(viper.GetString("port"))
 
 	C = config{CLIENTID: viper.GetString("clientid"),

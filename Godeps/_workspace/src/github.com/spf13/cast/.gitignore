@@ -21,8 +21,3 @@ _testmain.go
 
 *.exe
 *.test
-*.prof
-
-config.yml
-
-.DS_Store
