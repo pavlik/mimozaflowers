@@ -373,7 +373,7 @@ func main() {
 		PORT:         viper.GetString("port")}
 
 	// set cache for data from instagram
-	InstaCache = cache.New(5*time.Minute, 30*time.Second)
+	InstaCache = cache.New(5*time.Hour, 30*time.Minute)
 
 	// Gin instance
 	router := echo.New() //gin.Default()
