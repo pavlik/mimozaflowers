@@ -26,3 +26,5 @@ _testmain.go
 config.yml
 
 .DS_Store
+mimozaflowers
+.vscode

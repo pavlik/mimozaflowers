@@ -5,11 +5,16 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
 	"strconv"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"log"
+
+	"github.com/labstack/echo"
+	mw "github.com/labstack/echo/middleware"
+	"github.com/patrickmn/go-cache"
 	"github.com/spf13/viper"
 )
 
@@ -22,6 +27,8 @@ type config struct {
 }
 
 var C config
+
+var InstaCache *cache.Cache
 
 type UserResponse struct {
 	MetaResponse
@@ -227,32 +234,53 @@ func getRecentMedia(userID string, count int) (*MediasResponse, error) {
 }
 
 // Handler
-func recentMedia(c *gin.Context) {
-	id, err := getUserID(C.USERNAME)
-	if err != nil {
-		c.String(http.StatusBadRequest, "User not found: %s", err.Error())
+func recentMedia(c *echo.Context) error {
+
+	var err error
+
+	//log.Println("InstaChache: ", InstaCache)
+
+	// Caching UserID
+	var id string
+	x, found := InstaCache.Get("userID")
+	if found {
+		id = x.(string)
+	} else {
+		id, err = getUserID(C.USERNAME)
+		if err != nil {
+			log.Println("Error in getUserID func: ", err)
+			err = c.String(http.StatusBadRequest, "User not found: "+err.Error())
+		}
+		if err == nil {
+			InstaCache.Set("userID", id, cache.DefaultExpiration)
+		}
 	}
 
-	mediasResponse, err2 := getRecentMedia(id, 20)
+	//log.Println("UserID: ", id)
 
-	if err2 != nil {
-		c.String(http.StatusBadRequest, "Media not found: ", err.Error())
+	// Caching Instafeed last 20 photos
+	var mediasResponse *MediasResponse
+	if x, found := InstaCache.Get("mediasResponse"); found {
+		mediasResponse = x.(*MediasResponse)
+	} else {
+		mediasResponse, err = getRecentMedia(id, 20)
+
+		if err != nil {
+			log.Println("Error in getRecentMedia: ", err)
+			err = c.String(http.StatusBadRequest, "Media not found: "+err.Error())
+		}
+
+		if err == nil {
+			InstaCache.Set("mediasResponse", mediasResponse, cache.DefaultExpiration)
+		}
 	}
 
 	if mediasResponse.Meta.Code == 200 {
-		c.HTML(http.StatusOK, "index", mediasResponse)
+		err = c.Render(http.StatusOK, "index", mediasResponse)
 	}
 
-	//c.JSON(http.StatusOK, mediasResponse)
+	return err
 }
-
-type Template struct {
-	templates *template.Template
-}
-
-// func (t *Template) Render(w io.Writer, name string, data interface{}) error {
-// 	return t.templates.ExecuteTemplate(w, name, data)
-// }
 
 func generateEndingColumns(columnsToGenerate, columns int) string {
 	var feed string
@@ -308,13 +336,24 @@ func buildInstaFeed(medias []Media, itemsPerRow int) template.HTML {
 	return template.HTML(feed)
 }
 
+type Template struct {
+	templates *template.Template
+}
+
+// Render HTML
+func (t *Template) Render(w io.Writer, name string, data interface{}) error {
+	return t.templates.ExecuteTemplate(w, name, data)
+}
+
 func main() {
 	// init config
 	viper.SetConfigName("config") // name of config file (without extension)
 	viper.AddConfigPath(".")
 
 	err := viper.ReadInConfig() // Find and read the config file
-	if err != nil {             // Handle errors reading the config file
+	if err != nil {
+		log.Println(err)
+		// Handle errors reading the config file
 		viper.AutomaticEnv()
 		//panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
@@ -325,7 +364,7 @@ func main() {
 	// }
 	//os.Getenv("PORT")
 
-	fmt.Println(viper.GetString("port"))
+	// log.Println("Mimozaflowers port: ", viper.GetString("port"))
 
 	C = config{CLIENTID: viper.GetString("clientid"),
 		CLIENTSECRET: viper.GetString("clientsecret"),
@@ -333,25 +372,34 @@ func main() {
 		USERNAME:     viper.GetString("username"),
 		PORT:         viper.GetString("port")}
 
+	// set cache for data from instagram
+	InstaCache = cache.New(5*time.Minute, 30*time.Second)
+
 	// Gin instance
-	router := gin.Default()
+	router := echo.New() //gin.Default()
 
 	html := template.Must(template.New("").Funcs(template.FuncMap{"buildInstaFeed": buildInstaFeed}).ParseGlob("templates/*.html"))
-	//t := &Template{templates: html}
-	router.SetHTMLTemplate(html)
+	t := &Template{templates: html}
+	router.SetRenderer(t)
+	//router.SetHTMLTemplate(html)
 
 	// Middleware
-	router.Use(gin.Logger())
-	router.Use(gin.Recovery())
+	router.Use(mw.Logger())
+	router.Use(mw.Recover())
 
 	// Routes
 	router.Static("/js/", "public/js")
 	router.Static("/css/", "public/css")
-	router.GET("/", recentMedia)
+	router.Get("/", recentMedia)
 
 	// Start server
+	//err = router.Run(":" + C.PORT)
+
+	//graceful.Run(":"+C.PORT, 5*time.Second, router)
+	//graceful.ListenAndServe(router.Server(":"+C.PORT), 5*time.Second)
 	router.Run(":" + C.PORT)
-    
-    
-    
+	// if err != nil {
+	// 	log.Println("Error: ", err)
+	// }
+
 }
